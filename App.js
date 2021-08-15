@@ -1,11 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+
+const [data,setData] = useState([]);
+const [isLoading, setLoading]= useState(true);
+
+useEffect(()=>{
+  fetch('https://randomuser.me/api/')
+  .then(response => response.json())
+  .then(d =>{
+    console.log('results ==>',d.results);
+    setLoading(false);
+    setData(d.results)}
+    );
+},[]);
+
+
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      {isLoading && <Text>Loading</Text>}
+      {data.length!=0 &&
+      <Text>{data[0].dob.age}</Text>
+}
+      
       <StatusBar style="auto" />
     </View>
   );
