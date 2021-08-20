@@ -23,7 +23,8 @@ useEffect(()=>{
     <View style={styles.container}>
       {isLoading && <Text>Loading</Text>}
       {data.length!=0 &&
-      <Text>{data[0].dob.age}</Text>
+      <Text>{data[0].email} {data[0].dob.age}</Text>
+      
 }
       
       <StatusBar style="auto" />
