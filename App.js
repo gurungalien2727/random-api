@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 
 export default function App() {
 
@@ -23,10 +23,17 @@ useEffect(()=>{
     <View style={styles.container}>
       {isLoading && <Text>Loading</Text>}
       {data.length!=0 &&
-      <Text>{data[0].email} {data[0].dob.age}</Text>
-      
+      (<><Text>{data[0].email} {data[0].picture.medium}</Text>
+        <Image 
+        source={{
+          uri: data[0].picture.thumbnail,
+
+        }}
+        style={{ width: 305, height: 159 }}></Image>
+    
+      </>
+       )    
 }
-      
       <StatusBar style="auto" />
     </View>
   );
