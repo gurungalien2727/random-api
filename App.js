@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { Button, Image, StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
 
@@ -18,8 +18,6 @@ useEffect(()=>{
     );
 },[count]);
 
-
-
   return (
     <View style={styles.container}>
       {isLoading && <Text>Loading</Text>}
@@ -34,7 +32,7 @@ useEffect(()=>{
          <Button
         title="Another User"
         color="#f194ff"
-          onPress={() => setCount(count+1) }
+        onPress={() => setCount(count+1) }
       />
       </>
        )    
