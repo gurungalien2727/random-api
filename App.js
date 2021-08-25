@@ -9,7 +9,7 @@ const [count, setCount] = useState(0);
 const [isLoading, setLoading]= useState(true);
 
 useEffect(()=>{
-  fetch('https://randomuser.me/api/?results=3')
+  fetch('https://randomuser.me/api/?results=100')
   .then(response => response.json())
   .then(d =>{
     console.log('results ==>',d.results);
@@ -21,26 +21,27 @@ useEffect(()=>{
   return (
     <View style={styles.container}>
       {isLoading && <Text>Loading</Text>}
-      <Text>djdi</Text>
-      {data.length!=0 && 
-      console.log(data.length)
-
-      //   <>
-      //   <Text>{data[0].name.first} {data[2].name.last}</Text>
-      //  <Text>{data[1].email}</Text>
-       
-      //     <Image 
-      //     source={{
-      //       uri: data[0].picture.thumbnail,
+     
+      {data.length!=0 && data.map((d)=>{
+      
+      return<>
+        
+        <Text>{d.name.first} {d.name.last}</Text>
+        <Text>{d.email}</Text>
+          <Image 
+          source={{
+            uri: d.picture.thumbnail,
   
-      //     }}
-      //     style={{ width: 305, height: 159 }}></Image>
-      //      <Button
-      //     title="Another User"
-      //     color="#f194ff"
-      //     onPress={() => setCount(count+1) }
-      //   />
-      //   </>    
+          }}
+          style={{ width: 305, height: 159 }}></Image>
+           <Button
+          title="Another User"
+          color="#f194ff"
+          onPress={() => setCount(count+1) }
+        />
+        </>    
+      })
+        
         }
       <StatusBar style="auto" />
     </View>
