@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image,ScrollView,  StyleSheet, Text, View } from 'react-native';
 import User from './components/User';
 
 export default function App() {
@@ -10,7 +10,7 @@ const [count, setCount] = useState(0);
 const [isLoading, setLoading]= useState(true);
 
 useEffect(()=>{
-  fetch('https://randomuser.me/api/?results=4')
+  fetch('https://randomuser.me/api/?results=100')
   .then(response => response.json())
   .then(d =>{
     console.log('results ==>',d.results);
@@ -20,16 +20,16 @@ useEffect(()=>{
 },[count]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView >
       {isLoading && <Text>Loading</Text>}
-      {data.length!=0 && data.map((d)=>{
+      {data.length!=0 && data.map((d,i)=>{
       return<> 
-       <User firstName={d.name.first} lastName={d.name.last} email={d.email} url={d.picture.thumbnail}/>  
+       <User key={i}firstName={d.name.first} lastName={d.name.last} email={d.email} url={d.picture.thumbnail}/>  
         </>    
       }) 
         }
       <StatusBar style="auto" />
-    </View>
+    </ScrollView>
   );
 }
 
