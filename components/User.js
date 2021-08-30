@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, StyleSheet,TouchableOpacity, Text, View } from 'react-native';
 
 function User({firstName, lastName, email, url}) {
 
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container}>
             <Text>{firstName} {lastName}</Text>
             <Text>{email}</Text>
               <Image 
@@ -16,7 +16,7 @@ function User({firstName, lastName, email, url}) {
               }}
               style={{ width: 305, height: 159 }}></Image>
               
-        </View>
+        </TouchableOpacity>
     )
  }
     
@@ -25,7 +25,10 @@ function User({firstName, lastName, email, url}) {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom:'15%'
+        marginBottom:'15%',
+        borderWidth:2,
+        borderColor:'green',
+        backgroundColor:'yellow'
       
       }
     });
