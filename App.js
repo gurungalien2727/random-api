@@ -24,7 +24,7 @@ useEffect(()=>{
       {isLoading && <Text>Loading</Text>}
       {data.length!=0 && data.map((d,i)=>{
       return<> 
-       <User key={i}firstName={d.name.first} lastName={d.name.last} email={d.email} url={d.picture.thumbnail}/>  
+       <User key={i} firstName={d.name.first} lastName={d.name.last} email={d.email} url={d.picture.thumbnail}/>  
         </>    
       }) 
         }
