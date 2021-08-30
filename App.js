@@ -10,7 +10,7 @@ const [count, setCount] = useState(0);
 const [isLoading, setLoading]= useState(true);
 
 useEffect(()=>{
-  fetch('https://randomuser.me/api/?results=100')
+  fetch('https://randomuser.me/api/?results=6')
   .then(response => response.json())
   .then(d =>{
     console.log('results ==>',d.results);
