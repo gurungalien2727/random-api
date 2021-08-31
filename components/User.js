@@ -4,9 +4,9 @@ import { Button, Image, StyleSheet,TouchableOpacity, Text, View } from 'react-na
 
 function User({firstName, lastName, email, url}) {
 
-
+const onPress=()=> alert("component pressed")
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Text>{firstName} {lastName}</Text>
             <Text>{email}</Text>
               <Image 
