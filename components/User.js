@@ -32,9 +32,7 @@ const onPress=()=> {
         justifyContent: 'center',
         marginBottom:'15%',
         borderWidth:2,
-        borderColor:'green',
-        backgroundColor:'yellow'
-      
+        borderColor:'black',
       }
     });
     

@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import User from './components/User';
 import UserDetailsPage from './components/UserDetailsPage';
+import Loading from './components/Loading';
 
 function HomeScreen({navigation}) {
 
@@ -23,7 +24,7 @@ useEffect(()=>{
 
   return (
     <ScrollView >
-      {isLoading && <Text>Loading</Text>}
+      {isLoading && <Loading/>}
       {results.length!=0 && results.map((result,index)=>{
       return<> 
        <User email={result.email} firstName={result.name.first} key={index} lastName={result.name.last} url={result.picture.thumbnail} navigation={navigation}/> 
