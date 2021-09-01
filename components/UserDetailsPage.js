@@ -1,16 +1,15 @@
  
 import React from 'react';
-import { Button, Image, StyleSheet,TouchableOpacity, Text, View } from 'react-native';
-import User from './User';
+import {Text, View } from 'react-native';
 
-function UserDetailsPage() {
-
+function UserDetailsPage({route}) {
+    const {firstName, lastName, email} = route.params;
     return (
-        <Text>User Details Page</Text>
-    )
-
-    
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>{firstName} {lastName}</Text>
+        <Text>{email}</Text>
+      </View>
+    );
 }
-    
 
-    export default UserDetailsPage;
+export default UserDetailsPage;
