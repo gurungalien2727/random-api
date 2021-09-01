@@ -1,35 +1,50 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
 import { Button, Image,ScrollView,  StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import User from './components/User';
+import UserDetailsPage from './components/UserDetailsPage';
 
-export default function App() {
+function HomeScreen({navigation}) {
 
-const [data,setData] = useState([]);
-const [count, setCount] = useState(0);
+const [results,setResults] = useState([]);
 const [isLoading, setLoading]= useState(true);
 
 useEffect(()=>{
-  fetch('https://randomuser.me/api/?results=6')
+  fetch('https://randomuser.me/api/?results=8')
   .then(response => response.json())
-  .then(d =>{
-    console.log('results ==>',d.results);
+  .then(jsonResponse =>{
+    console.log('results ==> ',jsonResponse.results);
     setLoading(false);
-    setData(d.results)}
+    setResults(jsonResponse.results)}
     );
-},[count]);
+},[]);
 
   return (
     <ScrollView >
       {isLoading && <Text>Loading</Text>}
-      {data.length!=0 && data.map((d,i)=>{
+      {results.length!=0 && results.map((result,index)=>{
       return<> 
-       <User key={i} firstName={d.name.first} lastName={d.name.last} email={d.email} url={d.picture.thumbnail}/>  
+       <User email={result.email} firstName={result.name.first} key={index} lastName={result.name.last} url={result.picture.thumbnail} navigation={navigation}/> 
         </>    
       }) 
         }
       <StatusBar style="auto" />
     </ScrollView>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="UserDetails" component={UserDetailsPage} />
+    </Stack.Navigator>
+  </NavigationContainer>
   );
 }
 
@@ -41,3 +56,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
