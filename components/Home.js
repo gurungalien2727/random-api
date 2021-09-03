@@ -14,31 +14,32 @@ function Home({navigation}) {
       loadUsers();
     },[]);
 
-    
     loadUsers=()=>{
+
       const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=alien`
       fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{
-        console.log('results ==> ',jsonResponse);
+        // console.log('array ==> ',jsonResponse);
         setLoading(false);
         setResults(jsonResponse.results)}
         );
-
     }
     
+
       return (
-        <ScrollView >
-          {isLoading && <Loading/>}
-          {results.length!=0 && results.map((result,index)=>{
-          return<> 
-           <User email={result.email} firstName={result.name.first} key={index} lastName={result.name.last} url={result.picture.thumbnail} navigation={navigation}/> 
-            </>    
-          }) 
-            }
-          <StatusBar style="auto" />
-        </ScrollView>
+
+        isLoading ? <Loading/> :
+        <FlatList 
+        data={results}
+        renderItem={( result) => (
+
+          // console.log(result.item.login.uuid)
+          <User email={result.item.email} firstName={result.item.name.first} key={result.item.login.uuid} lastName={result.item.name.last} url={result.item.picture.thumbnail} navigation={navigation}/> 
+        )} 
+        >      
+        </FlatList>
       );
     }
-
     export default Home;
+
