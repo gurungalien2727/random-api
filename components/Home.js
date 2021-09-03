@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { ScrollView} from 'react-native';
+import { ScrollView, FlatList} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 
@@ -8,16 +8,24 @@ function Home({navigation}) {
 
     const [results,setResults] = useState([]);
     const [isLoading, setLoading]= useState(true);
+    const [page, setPage]= useState(1);
     
     useEffect(()=>{
-      fetch('https://randomuser.me/api/?results=8')
+      loadUsers();
+    },[]);
+
+    
+    loadUsers=()=>{
+      const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=alien`
+      fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{
-        console.log('results ==> ',jsonResponse.results);
+        console.log('results ==> ',jsonResponse);
         setLoading(false);
         setResults(jsonResponse.results)}
         );
-    },[]);
+
+    }
     
       return (
         <ScrollView >
