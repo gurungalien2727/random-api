@@ -43,8 +43,9 @@ function Home({navigation}) {
         <>
         <FlatList
         data={results}
+        keyExtractor= {(result)=> result.login.uuid}
         renderItem={( result) => (
-         //console.log(results.length) 
+         //console.log(result.item.login.uuid) 
          <User email={result.item.email} firstName={result.item.name.first} key={result.item.login.uuid} lastName={result.item.name.last} url={result.item.picture.thumbnail} navigation={navigation}/> 
         )} 
         onEndReached={() => loadMoreUsers ()}
