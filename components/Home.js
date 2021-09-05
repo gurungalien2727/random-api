@@ -4,7 +4,6 @@ import { Button, FlatList} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 
-
 function Home({navigation}) {
 
     const [results,setResults] = useState([]);
@@ -17,7 +16,6 @@ function Home({navigation}) {
     },[page]);
 
     loadUsers=()=>{
-
       const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=alien`
       fetch(URL)
       .then(response => response.json())
@@ -31,25 +29,22 @@ function Home({navigation}) {
     }
 
     loadMoreUsers=()=>{
-      
       setPage(page=>page+1);
       setLoadingMore(true);
     }
 
-    console.log(page)
       return (
-
         isLoading ? <Loading/> :
         <>
         <FlatList
         data={results}
         keyExtractor= {(result)=> result.login.uuid}
-        renderItem={( result) => (
-         //console.log(result.item.login.uuid) 
-         <User email={result.item.email} firstName={result.item.name.first} key={result.item.login.uuid} lastName={result.item.name.last} url={result.item.picture.thumbnail} navigation={navigation}/> 
-        )} 
         onEndReached={() => loadMoreUsers ()}
-        onEndReachedThreshold={0.2}>  
+        onEndReachedThreshold={0.2} 
+        renderItem={( result) => (
+         <User email={result.item.email} firstName={result.item.name.first} key={result.item.login.uuid} lastName={result.item.name.last} navigation={navigation} url={result.item.picture.thumbnail} /> 
+        )} 
+        >
         </FlatList>
         {loadingMore && <Loading/>}
         </>
