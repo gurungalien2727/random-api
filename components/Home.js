@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { ScrollView} from 'react-native';
+import { Button, FlatList} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 
@@ -8,29 +8,47 @@ function Home({navigation}) {
 
     const [results,setResults] = useState([]);
     const [isLoading, setLoading]= useState(true);
+    const [page, setPage]= useState(1);
+    const [loadingMore, setLoadingMore] =useState(false);
     
     useEffect(()=>{
-      fetch('https://randomuser.me/api/?results=8')
+      loadUsers();
+    },[page]);
+
+    loadUsers=()=>{
+      const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=alien`
+      fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{
-        console.log('results ==> ',jsonResponse.results);
         setLoading(false);
-        setResults(jsonResponse.results)}
+        setLoadingMore(false);
+        arr= page==1?jsonResponse.results:[...results, ...jsonResponse.results];
+        setResults(arr);
+      }
         );
-    },[]);
-    
-      return (
-        <ScrollView >
-          {isLoading && <Loading/>}
-          {results.length!=0 && results.map((result,index)=>{
-          return<> 
-           <User email={result.email} firstName={result.name.first} key={index} lastName={result.name.last} url={result.picture.thumbnail} navigation={navigation}/> 
-            </>    
-          }) 
-            }
-          <StatusBar style="auto" />
-        </ScrollView>
-      );
     }
 
+    loadMoreUsers=()=>{
+      setPage(page=>page+1);
+      setLoadingMore(true);
+    }
+
+      return (
+        isLoading ? <Loading/> :
+        <>
+        <FlatList
+        data={results}
+        keyExtractor= {(result)=> result.login.uuid}
+        onEndReached={() => loadMoreUsers ()}
+        onEndReachedThreshold={0.2} 
+        renderItem={( result) => (
+         <User email={result.item.email} firstName={result.item.name.first} key={result.item.login.uuid} lastName={result.item.name.last} navigation={navigation} url={result.item.picture.thumbnail} /> 
+        )} 
+        >
+        </FlatList>
+        {loadingMore && <Loading/>}
+        </>
+      );
+    }
     export default Home;
+
