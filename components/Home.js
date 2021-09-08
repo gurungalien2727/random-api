@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { Button, FlatList} from 'react-native';
+import { FlatList} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 
@@ -16,7 +16,7 @@ function Home({navigation}) {
     },[page]);
 
     loadUsers=()=>{
-      const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=alien`
+      const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=fetchSameUsers`
       fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{

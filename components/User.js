@@ -13,28 +13,42 @@ const onPress=()=> {
 }
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
-            <Text>{firstName} {lastName}</Text>
-            <Text>{email}</Text>
-              <Image 
+           <Image 
+              style={styles.image}
               source={{
-                uri: url,
-      
-              }}
-              style={{ width: 305, height: 159 }}></Image>      
+                uri: url
+              }}></Image> 
+            <View style={styles.view}>   
+            <Text style={styles.textName}>{firstName} {lastName}</Text>
+            <Text style={styles.textEmail}>{email}</Text>
+            </View>
+               
         </TouchableOpacity>
     )
  }
     
     const styles = StyleSheet.create({
       container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom:'15%',
-        borderWidth:2,
+        flexDirection:'row',
+        marginBottom:'6%',
         borderColor:'black',
+        borderWidth:2,
+  
+      },
+      image:{
+        width: 80, 
+        height: 80,
+        borderRadius:40,
+      },
+      view:{
+        padding: '4%'
+      },
+      textName:{
+        color:'#41cdf4',
+        fontSize: 24
+      },
+      textEmail:{
+        color:'grey'
       }
     });
-    
-
     export default User;
