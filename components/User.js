@@ -20,8 +20,8 @@ const onPress=()=> {
       
               }}></Image> 
             <View style={styles.view}>   
-              <Text>{firstName} {lastName}</Text>
-            <Text>{email}</Text>
+            <Text style={styles.textName}>{firstName} {lastName}</Text>
+            <Text style={styles.textEmail}>{email}</Text>
             </View>
                
         </TouchableOpacity>
@@ -32,8 +32,9 @@ const onPress=()=> {
       container: {
         flexDirection:'row',
         marginBottom:'6%',
-        borderWidth:2,
         borderColor:'black',
+        borderWidth:2,
+  
       },
       image:{
         width: 80, 
@@ -42,7 +43,13 @@ const onPress=()=> {
       },
       view:{
         padding: '4%'
+      },
+      textName:{
+        color:'#41cdf4',
+        fontSize: 24
+      },
+      textEmail:{
+        color:'grey'
       }
     });
-    
     export default User;
