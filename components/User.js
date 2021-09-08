@@ -13,28 +13,36 @@ const onPress=()=> {
 }
     return (
         <TouchableOpacity style={styles.container} onPress={onPress}>
-            <Text>{firstName} {lastName}</Text>
-            <Text>{email}</Text>
-              <Image 
+           <Image 
+              style={styles.image}
               source={{
                 uri: url,
       
-              }}
-              style={{ width: 305, height: 159 }}></Image>      
+              }}></Image> 
+            <View style={styles.view}>   
+              <Text>{firstName} {lastName}</Text>
+            <Text>{email}</Text>
+            </View>
+               
         </TouchableOpacity>
     )
  }
     
     const styles = StyleSheet.create({
       container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom:'15%',
+        flexDirection:'row',
+        marginBottom:'6%',
         borderWidth:2,
         borderColor:'black',
+      },
+      image:{
+        width: 80, 
+        height: 80,
+        borderRadius:40,
+      },
+      view:{
+        padding: '4%'
       }
     });
     
-
     export default User;

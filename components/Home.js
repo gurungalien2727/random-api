@@ -16,7 +16,7 @@ function Home({navigation}) {
     },[page]);
 
     loadUsers=()=>{
-      const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=alien`
+      const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=sameUsers`
       fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{
