@@ -16,8 +16,7 @@ const onPress=()=> {
            <Image 
               style={styles.image}
               source={{
-                uri: url,
-      
+                uri: url
               }}></Image> 
             <View style={styles.view}>   
             <Text style={styles.textName}>{firstName} {lastName}</Text>
