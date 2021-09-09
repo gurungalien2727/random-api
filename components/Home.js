@@ -42,7 +42,7 @@ function Home({navigation}) {
         onEndReached={() => loadMoreUsers ()}
         onEndReachedThreshold={0.2} 
         renderItem={( result) => (
-         <User email={result.item.email} firstName={result.item.name.first} key={result.item.login.uuid} lastName={result.item.name.last} navigation={navigation} url={result.item.picture.thumbnail} /> 
+         <User email={result.item.email} firstName={result.item.name.first} key={result.item.login.uuid} lastName={result.item.name.last} navigation={navigation} url={result.item.picture.large} /> 
         )} 
         >
         </FlatList>

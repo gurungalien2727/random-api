@@ -33,6 +33,7 @@ const onPress=()=> {
         marginBottom:'6%',
         borderColor:'black',
         borderWidth:2,
+        padding:4
   
       },
       image:{
