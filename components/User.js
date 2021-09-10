@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Button, Image, StyleSheet,TouchableOpacity, Text, View } from 'react-native';
+import { Image, StyleSheet,TouchableOpacity, Text, View } from 'react-native';
 
 function User({firstName, lastName, email, url, navigation}) {
 
@@ -8,7 +8,8 @@ const onPress=()=> {
     navigation.navigate('UserDetails', {
     firstName:firstName,
     lastName:lastName,
-    email:email
+    email:email,
+    url:url
   })
 }
     return (
