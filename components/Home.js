@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { FlatList} from 'react-native';
+import { FlatList, Text} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 
@@ -36,6 +36,7 @@ function Home({navigation}) {
       return (
         isLoading ? <Loading/> :
         <>
+        <Text>Filter Users</Text>
         <FlatList
         data={results}
         keyExtractor= {(result)=> result.login.uuid}
