@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react';
-import { FlatList, View} from 'react-native';
+import { FlatList, View, Text} from 'react-native';
 import Loading from './Loading';
 import User from './User';
-import { RadioButton } from 'react-native-paper';
+import { RadioButton,Button } from 'react-native-paper';
 
 function Home({navigation}) {
 
@@ -10,21 +10,21 @@ function Home({navigation}) {
     const [isLoading, setLoading]= useState(true);
     const [page, setPage]= useState(1);
     const [loadingMore, setLoadingMore] =useState(false);
-    const [checked, setChecked]= useState('first');
+    const [gender, setGender]= useState('');
     
     useEffect(()=>{
       loadUsers();
     },[page]);
 
     loadUsers=()=>{
-      const URL=`https://randomuser.me/api/?page=${page}&results=10&gender=male`
+      const URL=`https://randomuser.me/api/?page=${page}&results=10&gender=${gender}`
       fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{
         setLoading(false);
         setLoadingMore(false);
-        arr= page==1?jsonResponse.results:[...results, ...jsonResponse.results];
-        setResults(arr);
+       //arr= page==1?jsonResponse.results:[...results, ...jsonResponse.results];
+        setResults(jsonResponse.results);
       }
         );
     }
@@ -37,19 +37,23 @@ function Home({navigation}) {
       return (
         isLoading ? <Loading/> :
         <>
-        <View>
         <RadioButton
-          value="first"
-          checked={checked === 'first'}
-          onPress={() => { setChecked({ checked: 'first' }); }}
-        />
+          color="red"
+          checked={gender === ''}
+          onPress={() => { setGender('') }}/>
         <RadioButton
-          value="second"
-          checked={checked === 'second'}
-          onPress={() => { setChecked({ checked: 'second' }); }}
-        />
-        </View>
-
+          color="red"
+          checked={gender === 'female'}
+          onPress={() => { setGender('female') }}/>
+        <RadioButton
+          color="red"
+          checked={gender === 'male'}
+          onPress={() => { setGender('male') }}/>
+        <Text>Gender: {gender === ''? 'All':gender}</Text>
+        <Button raised onPress={() => console.log('Pressed')}>
+    Press me
+  </Button>
+      
        
         <FlatList
         data={results}
