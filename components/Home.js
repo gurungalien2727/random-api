@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { FlatList, Text} from 'react-native';
+import { FlatList, View} from 'react-native';
 import Loading from './Loading';
 import User from './User';
+import { RadioButton } from 'react-native-paper';
 
 function Home({navigation}) {
 
@@ -10,13 +10,14 @@ function Home({navigation}) {
     const [isLoading, setLoading]= useState(true);
     const [page, setPage]= useState(1);
     const [loadingMore, setLoadingMore] =useState(false);
+    const [checked, setChecked]= useState('first');
     
     useEffect(()=>{
       loadUsers();
     },[page]);
 
     loadUsers=()=>{
-      const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=fetchSameUsers`
+      const URL=`https://randomuser.me/api/?page=${page}&results=10&gender=male`
       fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{
@@ -36,7 +37,20 @@ function Home({navigation}) {
       return (
         isLoading ? <Loading/> :
         <>
-        <Text>Filter Users</Text>
+        <View>
+        <RadioButton
+          value="first"
+          checked={checked === 'first'}
+          onPress={() => { setChecked({ checked: 'first' }); }}
+        />
+        <RadioButton
+          value="second"
+          checked={checked === 'second'}
+          onPress={() => { setChecked({ checked: 'second' }); }}
+        />
+        </View>
+
+       
         <FlatList
         data={results}
         keyExtractor= {(result)=> result.login.uuid}
