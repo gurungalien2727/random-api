@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect} from 'react';
-import { FlatList} from 'react-native';
+import { FlatList, Text} from 'react-native';
 import Loading from './Loading';
 import User from './User';
+import { RadioButton,Button } from 'react-native-paper';
 
 function Home({navigation}) {
 
@@ -10,19 +10,28 @@ function Home({navigation}) {
     const [isLoading, setLoading]= useState(true);
     const [page, setPage]= useState(1);
     const [loadingMore, setLoadingMore] =useState(false);
+    const [gender, setGender]= useState('');
+    const [prevGender, setPrevGender] = useState('');
     
     useEffect(()=>{
       loadUsers();
-    },[page]);
+    },[page, gender]);
 
     loadUsers=()=>{
-      const URL=`https://randomuser.me/api/?page=${page}&results=10&seed=fetchSameUsers`
+      const URL=`https://randomuser.me/api/?page=${page}&results=10&gender=${gender}`
       fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{
         setLoading(false);
         setLoadingMore(false);
-        arr= page==1?jsonResponse.results:[...results, ...jsonResponse.results];
+        if(gender === prevGender){
+           arr= (page==1) ?jsonResponse.results:[...results, ...jsonResponse.results];
+         }
+         else{
+           arr= jsonResponse.results;
+           setPrevGender(gender);
+         }
+
         setResults(arr);
       }
         );
@@ -36,6 +45,27 @@ function Home({navigation}) {
       return (
         isLoading ? <Loading/> :
         <>
+        <Text>All</Text>
+        <RadioButton
+          color="red"
+          checked={gender === ''}
+          onPress={() => { setGender('') }}/>
+        <Text>Female</Text>
+        <RadioButton
+          color="red"
+          checked={gender === 'female'}
+          onPress={() => { setGender('female') }}/>
+        <Text>Male</Text>
+        <RadioButton
+          color="red"
+          checked={gender === 'male'}
+          onPress={() => { setGender('male') }}/>
+        <Text>Gender: {gender === ''? 'All':gender}</Text>
+        <Button raised onPress={() => console.log('Pressed')}>
+    Press me
+  </Button>
+      
+       
         <FlatList
         data={results}
         keyExtractor= {(result)=> result.login.uuid}
