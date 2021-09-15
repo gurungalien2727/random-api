@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { FlatList, View, Text} from 'react-native';
+import { FlatList, Text} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 import { RadioButton,Button } from 'react-native-paper';
@@ -11,10 +11,11 @@ function Home({navigation}) {
     const [page, setPage]= useState(1);
     const [loadingMore, setLoadingMore] =useState(false);
     const [gender, setGender]= useState('');
+    const [prevGender, setPrevGender] = useState('');
     
     useEffect(()=>{
       loadUsers();
-    },[page]);
+    },[page, gender]);
 
     loadUsers=()=>{
       const URL=`https://randomuser.me/api/?page=${page}&results=10&gender=${gender}`
@@ -23,8 +24,15 @@ function Home({navigation}) {
       .then(jsonResponse =>{
         setLoading(false);
         setLoadingMore(false);
-       //arr= page==1?jsonResponse.results:[...results, ...jsonResponse.results];
-        setResults(jsonResponse.results);
+        if(gender === prevGender){
+           arr= (page==1) ?jsonResponse.results:[...results, ...jsonResponse.results];
+         }
+         else{
+           arr= jsonResponse.results;
+           setPrevGender(gender);
+         }
+
+        setResults(arr);
       }
         );
     }
