@@ -45,14 +45,17 @@ function Home({navigation}) {
       return (
         isLoading ? <Loading/> :
         <>
+        <Text>All</Text>
         <RadioButton
           color="red"
           checked={gender === ''}
           onPress={() => { setGender('') }}/>
+        <Text>Female</Text>
         <RadioButton
           color="red"
           checked={gender === 'female'}
           onPress={() => { setGender('female') }}/>
+        <Text>Male</Text>
         <RadioButton
           color="red"
           checked={gender === 'male'}
