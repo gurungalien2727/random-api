@@ -61,9 +61,7 @@ function Home({navigation}) {
           checked={gender === 'male'}
           onPress={() => { setGender('male') }}/>
         <Text>Gender: {gender === ''? 'All':gender}</Text>
-        <Button raised onPress={() => console.log('Pressed')}>
-    Press me
-  </Button>
+       
       
        
         <FlatList
