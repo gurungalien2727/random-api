@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { FlatList, Text} from 'react-native';
 import Loading from './Loading';
 import User from './User';
-import { RadioButton,Button } from 'react-native-paper';
+import { RadioButton} from 'react-native-paper';
 
 function Home({navigation}) {
 
@@ -48,17 +48,17 @@ function Home({navigation}) {
         <Text>All</Text>
         <RadioButton
           color="red"
-          checked={gender === ''}
+          status={gender === ''?'checked':'unchecked'}
           onPress={() => { setGender('') }}/>
         <Text>Female</Text>
         <RadioButton
           color="red"
-          checked={gender === 'female'}
+          status={gender === 'female'?'checked':'unchecked'}
           onPress={() => { setGender('female') }}/>
         <Text>Male</Text>
         <RadioButton
           color="red"
-          checked={gender === 'male'}
+          status={gender === 'male'?'checked':'unchecked'}
           onPress={() => { setGender('male') }}/>
         <Text>Gender: {gender === ''? 'All':gender}</Text>
        
