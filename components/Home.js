@@ -1,5 +1,5 @@
-import React, { useState, useEffect} from 'react';
-import { FlatList, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { FlatList, Text, StyleSheet, View} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 import { RadioButton} from 'react-native-paper';
@@ -38,44 +38,41 @@ function Home({navigation}) {
     }
 
     loadMoreUsers=()=>{
-      setPage(page=>page+1);
-      if(gender===prevGender){
       setLoadingMore(true);
-      }
-      else{
-        setLoading(true);
-      }
+      setPage(page=>page+1);
     }
 
       return (
         isLoading ? <Loading/> :
         <>
-        <Text>All</Text>
+        <View style={styles.container}>
+        <Text style={styles.all}>All</Text>
         <RadioButton
           color="red"
+          onPress={() => { setGender('') }}
           status={gender === ''?'checked':'unchecked'}
-          onPress={() => { setGender('') }}/>
-        <Text>Female</Text>
+          />
+        <Text style={styles.female}>Female</Text>
         <RadioButton
           color="red"
+          onPress={() => { setGender('female') }}
           status={gender === 'female'?'checked':'unchecked'}
-          onPress={() => { setGender('female') }}/>
-        <Text>Male</Text>
+
+         />
+        <Text style={styles.male}>Male</Text>
         <RadioButton
           color="red"
           status={gender === 'male'?'checked':'unchecked'}
           onPress={() => { setGender('male') }}/>
-        <Text>Gender: {gender === ''? 'All':gender}</Text>
-       
-      
-       
+        <Text style={styles.gender}>Gender: {gender === ''? 'All':gender}</Text>
+        </View>
         <FlatList
         data={results}
         keyExtractor= {(result)=> result.login.uuid}
         onEndReached={() => loadMoreUsers ()}
         onEndReachedThreshold={0.2} 
         renderItem={( result) => (
-         <User email={result.item.email} firstName={result.item.name.first} key={result.item.login.uuid} lastName={result.item.name.last} navigation={navigation} url={result.item.picture.large} /> 
+         <User email={result.item.email} firstName={result.item.name.first} gender={result.item.gender} key={result.item.login.uuid} lastName={result.item.name.last} nationality={result.item.nat} navigation={navigation} url={result.item.picture.large} /> 
         )} 
         >
         </FlatList>
@@ -83,5 +80,28 @@ function Home({navigation}) {
         </>
       );
     }
+
+    const styles = StyleSheet.create({
+      container: {
+        flexDirection:'row',
+        marginBottom:'2%',
+        borderColor:'grey',
+        borderWidth:2,
+        padding:2
+  
+      },
+      all:{
+        marginTop:10
+      },
+      male:{
+        marginTop:10
+      },
+      female:{
+        marginTop:10
+      },
+      gender:{
+        marginTop:10
+      }
+    });
     export default Home;
 
