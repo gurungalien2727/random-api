@@ -39,7 +39,12 @@ function Home({navigation}) {
 
     loadMoreUsers=()=>{
       setPage(page=>page+1);
+      if(gender===prevGender){
       setLoadingMore(true);
+      }
+      else{
+        setLoading(true);
+      }
     }
 
       return (
