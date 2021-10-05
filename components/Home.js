@@ -8,7 +8,7 @@ function Home({navigation}) {
 
 const [gender, setGender]= useState('');
 const [open, setOpen] = useState(false);
-const [value, setValue] = useState(null);
+const [value, setValue] = useState('');
 const [nationality, setNationality] = useState([
   {label: 'Australia', value: 'au'},
   {label: 'Great Britain', value: 'gb'},

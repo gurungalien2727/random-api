@@ -9,11 +9,12 @@ function Users({gender, nationality, navigation}){
     const [page, setPage]= useState(1);
     const [loadingMore, setLoadingMore] =useState(false);
     const [prevGender, setPrevGender] = useState(gender);
-    const [prevNat, setPrevNat] = useState(nationality)
+    const [prevNat, setPrevNat] = useState(nationality);
 
+  
 
      useEffect(()=>{
-     if(gender !== prevGender) setLoading(true);
+      if(gender !== prevGender || nationality!==prevNat) setLoading(true);
       loadUsers();
     },[page, gender, nationality]);
 
@@ -24,16 +25,14 @@ function Users({gender, nationality, navigation}){
       .then(jsonResponse =>{
         setLoading(false);
         setLoadingMore(false);
-        if(gender === prevGender){
+        if(gender === prevGender && nationality === prevNat  ){
            arr= (page==1) ?jsonResponse.results:[...results, ...jsonResponse.results];
          }
-         else if(nationality===prevNat){
-          arr= (page==1) ?jsonResponse.results:[...results, ...jsonResponse.results];
-         }
+        
          else{
            arr= jsonResponse.results;
            if(gender!==prevGender)   setPrevGender(gender);
-           if(nationality!==prevNat) setPrevNat(nationality);
+           if(nationality!==prevNat)  setPrevNat(nationality);
           
          }
 
@@ -50,7 +49,6 @@ function Users({gender, nationality, navigation}){
     return (
       isLoading ? <Loading/>:
         <>
-        <Text>{nationality}</Text>
         <FlatList
         data={results}
         keyExtractor= {(result)=> result.login.uuid}
