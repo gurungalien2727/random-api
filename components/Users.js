@@ -1,33 +1,39 @@
 import React, {useState, useEffect} from 'react';
-import { FlatList, StyleSheet} from 'react-native';
+import { FlatList,Text} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 
-function Users({gender, navigation}){
+function Users({gender, nationality, navigation}){
     const [results,setResults] = useState([]);
     const [isLoading, setLoading]= useState(true);
     const [page, setPage]= useState(1);
     const [loadingMore, setLoadingMore] =useState(false);
     const [prevGender, setPrevGender] = useState(gender);
+    const [prevNat, setPrevNat] = useState(nationality);
+
+  
 
      useEffect(()=>{
-     if(gender !== prevGender) setLoading(true);
+      if(gender !== prevGender || nationality!==prevNat) setLoading(true);
       loadUsers();
-    },[page, gender]);
+    },[page, gender, nationality]);
 
     loadUsers=()=>{
-      const URL=`https://randomuser.me/api/?page=${page}&results=10&gender=${gender}`
+      const URL=`https://randomuser.me/api/?page=${page}&results=10&gender=${gender}&nat=${nationality}`
       fetch(URL)
       .then(response => response.json())
       .then(jsonResponse =>{
         setLoading(false);
         setLoadingMore(false);
-        if(gender === prevGender){
+        if(gender === prevGender && nationality === prevNat  ){
            arr= (page==1) ?jsonResponse.results:[...results, ...jsonResponse.results];
          }
+        
          else{
            arr= jsonResponse.results;
-           setPrevGender(gender);
+           if(gender!==prevGender)   setPrevGender(gender);
+           if(nationality!==prevNat)  setPrevNat(nationality);
+          
          }
 
         setResults(arr);

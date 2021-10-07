@@ -2,10 +2,20 @@ import React, {useState} from 'react';
 import { Text, StyleSheet, View} from 'react-native';
 import Users from './Users';
 import { RadioButton} from 'react-native-paper';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 function Home({navigation}) {
 
 const [gender, setGender]= useState('');
+const [open, setOpen] = useState(false);
+const [value, setValue] = useState('');
+const [nationality, setNationality] = useState([
+  {label: 'Australia', value: 'au'},
+  {label: 'Great Britain', value: 'gb'},
+  {label: 'Canada', value: 'ca'},
+  {label: 'China', value: 'ch'},
+  {label: 'United States', value: 'us'},
+]);
 
       return (
         <>
@@ -30,7 +40,18 @@ const [gender, setGender]= useState('');
           onPress={() => { setGender('male') }}/>
         <Text style={styles.gender}>Gender: {gender === ''? 'All':gender}</Text>
         </View>
-        <Users gender={gender} navigation={navigation}/>
+
+        <DropDownPicker
+        style={styles.picker}
+        labelProps={'Select a nation'}
+        open={open}
+        value={value}
+        items={nationality}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setNationality}
+       />
+        <Users gender={gender} nationality={value} navigation={navigation}/>
         </>
       );
     }
@@ -55,6 +76,10 @@ const [gender, setGender]= useState('');
       },
       gender:{
         marginTop:10
+      },
+      picker:{
+        marginBottom:10,
+     
       }
     });
     
