@@ -4,14 +4,13 @@ import Loading from './Loading';
 import User from './User';
 
 function Users({gender, nationality, navigation}){
+  
     const [results,setResults] = useState([]);
     const [isLoading, setLoading]= useState(true);
     const [page, setPage]= useState(1);
     const [loadingMoreUsers, setLoadingMoreUsers] =useState(false);
     const [prevGender, setPrevGender] = useState(gender);
     const [prevNat, setPrevNat] = useState(nationality);
-
-  
 
      useEffect(()=>{
       if(gender !== prevGender || nationality!==prevNat) setLoading(true);
@@ -61,7 +60,6 @@ function Users({gender, nationality, navigation}){
         </FlatList>
         {loadingMoreUsers && <Loading/>}
        </>
-
     )
   }
 
