@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import { FlatList,Text} from 'react-native';
+import { FlatList} from 'react-native';
 import Loading from './Loading';
 import User from './User';
 
 function Users({gender, nationality, navigation}){
+  
     const [results,setResults] = useState([]);
     const [isLoading, setLoading]= useState(true);
     const [page, setPage]= useState(1);
-    const [loadingMore, setLoadingMore] =useState(false);
+    const [loadingMoreUsers, setLoadingMoreUsers] =useState(false);
     const [prevGender, setPrevGender] = useState(gender);
     const [prevNat, setPrevNat] = useState(nationality);
-
-  
 
      useEffect(()=>{
       if(gender !== prevGender || nationality!==prevNat) setLoading(true);
@@ -24,7 +23,7 @@ function Users({gender, nationality, navigation}){
       .then(response => response.json())
       .then(jsonResponse =>{
         setLoading(false);
-        setLoadingMore(false);
+        setLoadingMoreUsers(false);
         if(gender === prevGender && nationality === prevNat  ){
            arr= (page==1) ?jsonResponse.results:[...results, ...jsonResponse.results];
          }
@@ -42,7 +41,7 @@ function Users({gender, nationality, navigation}){
     }
 
     loadMoreUsers=()=>{
-      setLoadingMore(true);
+      setLoadingMoreUsers(true);
       setPage(page=>page+1);
     }
 
@@ -59,9 +58,8 @@ function Users({gender, nationality, navigation}){
         )} 
         >
         </FlatList>
-        {loadingMore && <Loading/>}
+        {loadingMoreUsers && <Loading/>}
        </>
-
     )
   }
 
