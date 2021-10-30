@@ -20,7 +20,7 @@ const [nationality, setNationality] = useState([
       return (
         <>
         <View style={styles.container}>
-        <Text style={styles.all}>All</Text>
+        <Text style={styles.all}>Both</Text>
         <RadioButton
           color="red"
           onPress={() => { setGender('') }}
@@ -38,7 +38,7 @@ const [nationality, setNationality] = useState([
           color="red"
           status={gender === 'male'?'checked':'unchecked'}
           onPress={() => { setGender('male') }}/>
-        <Text style={styles.gender}>Gender: {gender === ''? 'All':gender}</Text>
+        <Text style={styles.gender}>Gender: {gender === ''? 'Both':gender}</Text>
         </View>
 
         <DropDownPicker
