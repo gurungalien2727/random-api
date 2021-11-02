@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 const useFetchUsers = (gender, nationality) =>{
     const [results,setResults] = useState([]);
-    const [isLoading, setLoading]= useState(true);
+    const [loading, setLoading]= useState(true);
     const [page, setPage]= useState(1);
     const [loadingMoreUsers, setLoadingMoreUsers] =useState(false);
     const [prevGender, setPrevGender] = useState(gender);
@@ -41,7 +41,7 @@ const useFetchUsers = (gender, nationality) =>{
         setPage(page=>page+1);
       }
 
-      return [isLoading, results, loadMoreUsers, loadingMoreUsers];
+      return [loading, results, loadMoreUsers, loadingMoreUsers];
 
 }
 
