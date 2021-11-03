@@ -3,7 +3,7 @@ import React from 'react';
 import {Image, StyleSheet, Text, View } from 'react-native';
 
 function UserDetailsPage({route}) {
-    const {firstName, lastName, email, url} = route.params;
+    const {email, firstName, lastName, url} = route.params;
     return (
       <View style={styles.container}>
          <Image 

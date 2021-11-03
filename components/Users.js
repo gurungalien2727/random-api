@@ -6,10 +6,10 @@ import User from './User';
 
 function Users({gender, nationality, navigation}){
      
-const [isLoading, results, loadMoreUsers, loadingMoreUsers] = useFetchUsers(gender, nationality, navigation);
+const [loading, loadMoreUsers, loadingMoreUsers, results] = useFetchUsers(gender, nationality, navigation);
     
     return (
-      isLoading ? <Loading/>:
+      loading ? <Loading/>:
         <>
         <FlatList
         data={results}
