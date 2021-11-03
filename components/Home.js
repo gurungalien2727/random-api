@@ -43,7 +43,7 @@ const [nationality, setNationality] = useState([
 
         <DropDownPicker
         style={styles.picker}
-        labelProps={'Select a nation'}
+        placeholder={'Select a nation'}
         open={open}
         value={value}
         items={nationality}
