@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { FlatList} from 'react-native';
 import useFetchUsers from './hooks/useFetchUsers';
 import Loading from './Loading';
