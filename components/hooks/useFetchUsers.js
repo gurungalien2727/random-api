@@ -1,42 +1,59 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useReducer} from 'react';
+
+function reducer(state, action){
+switch(action.type){
+  case 'page':
+    console.log('page');
+    return {...state, page: action.payload};
+  case 'gender':
+    return {...state, previousGender: action.payload};
+  case 'nationality':
+    return {...state, previousNationality: action.payload};
+  default:
+    throw new Error();
+}
+}
 
 const useFetchUsers = (gender, nationality) =>{
-  
+
     const [results,setResults] = useState([]);
     const [loading, setLoading]= useState(true);
-    const [page, setPage]= useState(1);
     const [loadingMoreUsers, setLoadingMoreUsers] =useState(false);
-    const [previousGender, setPreviousGender] = useState(gender);
-    const [previousNationality, setPreviousNationality] = useState(nationality);
+    const [params, dispatch] = useReducer(reducer, {
+      page:1,
+      previousGender:gender,
+      previousNationality:nationality,
+    });
 
     useEffect(()=>{
-        if(gender !== previousGender || nationality!==previousNationality) setLoading(true);
+        if(gender !== params.previousGender || nationality!==params.previousNationality) setLoading(true);
         loadUsers();
-      },[page, gender, nationality]);
+      },[params.page, gender, nationality]);
   
       loadUsers=()=>{
-        const URL=`https://randomuser.me/api/?page=${page}&results=10&gender=${gender}&nat=${nationality}`
+        const URL=`https://randomuser.me/api/?page=${params.page}&results=10&gender=${gender}&nat=${nationality}`
         fetch(URL)
         .then(response => response.json())
         .then(jsonResponse =>{
           setLoading(false);
           setLoadingMoreUsers(false);
-          if(gender === previousGender && nationality === previousNationality  ){
-             arr= (page==1) ?jsonResponse.results:[...results, ...jsonResponse.results];
+          if(gender === params.previousGender && nationality === params.previousNationality  ){
+             arr= (params.page==1) ?jsonResponse.results:[...results, ...jsonResponse.results];
            }
            else{
              arr= jsonResponse.results;
-             if(gender!==previousGender)   setPreviousGender(gender);
-             if(nationality!==previousNationality)  setPreviousNationality(nationality);
+             if(gender!== params.previousGender)  {
+              dispatch({type: 'gender', payload:gender})
+             }
+             if(nationality!== params.previousNationality)  dispatch({type: 'nationality', payload:nationality})
            }
           setResults(arr);
         }
           );
       }
-
       loadMoreUsers=()=>{
         setLoadingMoreUsers(true);
-        setPage(page=>page+1);
+        dispatch({type: 'page', payload: params.page + 1});
       }
       return [loading, loadMoreUsers, loadingMoreUsers, results];
 }
