@@ -3,7 +3,6 @@ import {useState, useEffect, useReducer} from 'react';
 function reducer(state, action){
 switch(action.type){
   case 'page':
-    console.log('page');
     return {...state, page: action.payload};
   case 'gender':
     return {...state, previousGender: action.payload};
