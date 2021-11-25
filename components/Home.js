@@ -61,6 +61,7 @@ const [nationality, setNationality] = useState([
         flexDirection:'row',
         marginBottom:'2%',
         borderColor:'grey',
+        justifyContent:'space-around',
         borderWidth:2,
         padding:2
   
